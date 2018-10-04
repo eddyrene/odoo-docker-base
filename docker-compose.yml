@@ -1,0 +1,30 @@
+version: '3'
+services:
+  web:
+    image: odoo:11.0
+    depends_on:
+      - db
+    ports:
+      - 80:8069
+      - 443:8071
+    volumes:
+      - odoo-web-data:/var/lib/odoo
+      - ./config:/etc/odoo
+      - ./addons:/mnt/extra-addons
+    environment:
+      - HOST=db
+      - USER=odoo
+      - PASSWORD=hcodoo
+  db:
+    image: postgres:9.6
+    volumes:
+      - odoo-db-data:/var/lib/postgresql/data/pgdata
+    environment:
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=hcodoo
+      - PGDATA=/var/lib/postgresql/data/pgdata
+volumes:
+  odoo-web-data:
+    driver: local
+  odoo-db-data:
+    driver: local
