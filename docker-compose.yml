@@ -1,7 +1,7 @@
 version: '3'
 services:
   web:
-    image: odoo:11.0
+    image: odoo:10.0
     depends_on:
       - db
     ports:
@@ -16,7 +16,7 @@ services:
       - USER=odoo
       - PASSWORD=hcodoo
   db:
-    image: postgres:9.6
+    image: postgres:9.4
     volumes:
       - odoo-db-data:/var/lib/postgresql/data/pgdata
     environment:
